@@ -16,18 +16,12 @@ class UserController {
 
     async sign_up(req, res, next) {
         try {
-            // let newUser = new User(req.body);
-            if (!req.body.name || !req.body.phone || !req.body.address || !req.body.pass || !req.body.permission) {
+            let newUser = new User(req.body);
+            if (!req.body.avatar || !req.body.name || !req.body.phone || !req.body.address || !req.body.pass || !req.body.permission) {
                 res.json({ ketqua: 0, maloi: "Truyen thieu tham so" })
             } else {
-                // await newUser.save();
-                res.json({
-                    "name": "A",
-                    "phone": "0382292563",
-                    "address": "Ho Chi Minh",
-                    "permission": 1,
-                    "product": [],
-                });
+                await newUser.save();
+                res.json({ success: true, data: newUser });
             }
 
         }
@@ -37,23 +31,20 @@ class UserController {
     }
 
     async sign_in(req, res, next) {
+        
         try {
-            if (!req.body.phone || !req.body.pass){
-                res.json({ ketqua: 0, maloi: "truyen thieu tham so"})
+            if (!req.body.phone || !req.body.pass) {
+                res.json({ ketqua: 0, maloi: "truyen thieu tham so" })
             } else {
+                let userFind =await User.findOne({$and:[{phone:req.body.phone},{pass:req.body.pass}]})
+                if (!userFind) return  res.status(400).json({ success: false, message: e.message });
+               console.log(userFind)
                 res.json({
-                    "name": "A",
-                    "phone": "0382292563",
-                    "address": "Ho Chi Minh",
-                    "permission": 1,
-                    "product": [
-                        {
-                            "name": "A",
-                            "image": "/file/321321.png",
-                            "type": "ABC",
-                            "time_receive": 1667260800
-                        }
-                    ]
+                    "name": userFind.name,
+                    "phone": userFind.phone,
+                    "address": userFind.address,
+                    "permission": userFind.permission,
+                    "product": userFind.product || [],
                 })
             }
         }

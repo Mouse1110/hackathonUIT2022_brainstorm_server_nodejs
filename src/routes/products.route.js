@@ -4,8 +4,8 @@ const router = express.Router();
 
 const productController = require('../controllers/ProductController')
 
-// router.get('/show', UserController.show);
-router.get('/', productController.index);
+router.get('/show', productController.show);
+// router.get('/', productController.index);
 router.get('/category', productController.category);
 router.get('/user-near', productController.user_near);
 router.post('/', productController.create_product);

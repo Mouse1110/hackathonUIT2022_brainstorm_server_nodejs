@@ -1,15 +1,28 @@
 const Product = require('../models/Products');
 
 class ProductController {
-    index(req, res, next) {
-        // res.render('courses/create')
-        res.json([{
-            "name": "A",
-            "image": "/file/321321.png",
-            "type": "ABC",
-            "time_receive": 1667260800
-        }])
+
+    show(req, res, next) {
+        try {
+            (async () => {
+                const data = await Product.find({ IsDeleted: true }).exec()
+                res.json({ success: true, data });
+                console.log(data);
+            })()
+
+        } catch (e) {
+            res.json({ success: false, message: e.message });
+        }
     }
+    // index(req, res, next) {
+    //     // res.render('courses/create')
+    //     res.json([{
+    //         "name": "A",
+    //         "image": "/file/321321.png",
+    //         "type": "ABC",
+    //         "time_receive": 1667260800
+    //     }])
+    // }
 
     category(req, res, next) {
         res.json([
@@ -48,6 +61,7 @@ class ProductController {
             res.json({ success: true, data: newProduct });
         }
     }
+
     async buy_product(req, res, next) {
 
         if (!req.body.phone || !req.body.id || !req.body.time_period) {
