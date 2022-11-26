@@ -36,9 +36,9 @@ class ProductController {
     user_near(req, res, next) {
         res.json({
 
-            "name": "Nguyen Van A",
+            "name": "Nguyễn Văn A",
             "phone": "0382292563",
-            "address": "Ho Chi Minh",
+            "address": "Hồ Chí Minh",
             "product": [
                 {
                     "name": "A",
@@ -85,7 +85,7 @@ class ProductController {
                         "id_user": "3213",
                         "name": "A",
                         "phone": "0382292563",
-                        "address": "Ho Chi Minh",
+                        "address": "Hồ Chí Minh",
                         "time_period": 1669852800
                     }
                 ]);
