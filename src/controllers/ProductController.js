@@ -1,4 +1,6 @@
 const Product = require('../models/Products');
+const User = require('../models/Users');
+
 
 class ProductController {
 
@@ -108,7 +110,7 @@ class ProductController {
         }
     }
 
-
+    
 }
 
 module.exports = new ProductController();
