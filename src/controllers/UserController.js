@@ -15,32 +15,40 @@ class UserController {
     }
 
     async sign_up(req, res, next) {
+        var avatar = req.body.avatar;
+        var address = req.body.address;
+        var name = req.body.name;
+        var phone = req.body.phone;
+        var pass = req.body.pass;
+        var permission = req.body.permission;
+
         try {
             let newUser = new User(req.body);
-            if (!req.body.avatar || !req.body.name || !req.body.phone || !req.body.address || !req.body.pass || !req.body.permission) {
-                res.json({ ketqua: 0, maloi: "Truyen thieu tham so" })
+            if (!avatar || !name || !phone || !address || !pass || !permission) {
+                res.json({ result: 0, code: "Truyen thieu tham so" })
             } else {
-                await newUser.save();
+                // await newUser.save();
                 res.json({ success: true, data: newUser });
             }
-
         }
         catch (e) {
-            res.json({ success: false, message: e.message });
+            res.status(500).send({ message: err.message });
+
         }
     }
 
     async sign_in(req, res, next) {
-        
+
         try {
             if (!req.body.phone || !req.body.pass) {
                 res.json({ ketqua: 0, maloi: "truyen thieu tham so" })
             } else {
-                let userFind =await User.findOne({$and:[{phone:req.body.phone},{pass:req.body.pass}]})
-                if (!userFind) return  res.status(400).json({ success: false, message: e.message });
-               console.log(userFind)
+                let userFind = await User.findOne({ $and: [{ phone: req.body.phone }, { pass: req.body.pass }] })
+                if (!userFind) return res.status(400).json({ success: false, message: e.message });
+                console.log(userFind)
                 res.json({
                     "name": userFind.name,
+                    "avatar": userFind.avatar,
                     "phone": userFind.phone,
                     "address": userFind.address,
                     "permission": userFind.permission,
