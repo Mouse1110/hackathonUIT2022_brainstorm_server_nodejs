@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-require("dotenv").config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.listen(app.listen(process.env.PORT || 8080), function () {
     console.log('CORS-enabled web server is running')
 })
 
-const route = require('./routes');
+const route = require('./routes/index');
 const db = require('./config/db');
 
 db.connect();
