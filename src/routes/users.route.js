@@ -6,7 +6,7 @@ const router = express.Router();
 
 const userController = require('../controllers/UserController')
 
-router.get('/', middlewareController.verifyToken, userController.getAllUsers);
+router.get('/',userController.getAllUsers);
 router.get("/:id", userController.findUserById);
 router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, userController.deleteUser);
 router.post('/sign-up', userController.sign_up);
