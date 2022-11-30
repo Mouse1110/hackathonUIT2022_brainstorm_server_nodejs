@@ -1,15 +1,18 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+require("dotenv").config();
 
- 
-app.use(cors())
- app.listen(app.listen(process.env.PORT || 8080), function () {
-  console.log('CORS-enabled web server listening')
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+
+app.listen(app.listen(process.env.PORT || 8080), function () {
+    console.log('CORS-enabled web server is running')
 })
-    
-    
 
 const route = require('./routes');
 const db = require('./config/db');
@@ -19,10 +22,9 @@ db.connect();
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(
     express.urlencoded({
-        extended: true,
+        extended: false,
     }),
 );
-app.use(express.json());
 
 
 route(app);

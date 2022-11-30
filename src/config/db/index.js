@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb+srv://minigame:Tuananh123@cluster0.3eznl3s.mongodb.net/minigame?retryWrites=true&w=majority');
+        await mongoose.connect(process.env.MONGODB_URL);
 
         console.log('Connect db successfully !!!');
 
